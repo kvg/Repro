@@ -39,7 +39,15 @@ my $dm = new DM(
     'outputFile' => "$resultsDir/dm.log",
 );
 
+# ==============
+# ANALYSIS RULES
+# ==============
+
 #$dm->addRule(target, dependencies, command, 'outputFile' => "$logsDir/target.log");
+
+# ============
+# REPORT RULES
+# ============
 
 # Prepare report template
 my $reportRnwTemplate = "$scriptsDir/report.rnw.template";
@@ -51,7 +59,7 @@ $dm->addRule($reportRnw, [$reportRnwTemplate], $reportRnwCmd, 'cluster' => 'loca
 my $tufteClassTemplate = "$resourcesDir/tufte-report.cls";
 my $tufteClass = "$resultsDir/tufte-report.cls";
 my $tufteClassCmd = "cp $tufteClassTemplate $tufteClass";
-$dm->addRule($tufteClass, $tufteClassTemplate, $tufteClassCmd);
+$dm->addRule($tufteClass, $tufteClassTemplate, $tufteClassCmd, 'cluster' => 'localhost');
 
 # Evaluate the R code within the report and generate a .tex file
 my $reportTex = "$resultsDir/$projectName.$args{'RUN_ID'}.tex";
