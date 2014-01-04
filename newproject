@@ -1,0 +1,42 @@
+#!/bin/sh
+
+if [ $# == 0 ]; then
+    echo "Must supply a project name as the first argument."
+    exit 1 
+fi
+    
+if [ -e $1 ]; then
+    echo "Project '$1' already exists."
+    exit 1
+fi
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_NAME=$1
+DATE=`date`
+
+README=${PROJECT_NAME}/README
+GO=${PROJECT_NAME}/go
+ANALYZE=${PROJECT_NAME}/scripts/analyze.pl
+REPORT=${PROJECT_NAME}/scripts/report.rnw.template
+
+git init ${PROJECT_NAME}
+
+mkdir -p ${PROJECT_NAME}/{bin,data,lists,results,resources,scratch,scripts,scripts/lib}
+mkdir -p ${HOME}/Dropbox/Reports/${PROJECT_NAME}
+ln -s ${HOME}/Dropbox/Reports/${PROJECT_NAME} ${PROJECT_NAME}/reports
+
+sed "s/<PROJECT_NAME>/${PROJECT_NAME}/g" ${SCRIPT_DIR}/README.template | sed "s/<DATE>/${DATE}/g" > ${README}
+sed "s/<PROJECT_NAME>/${PROJECT_NAME}/g" ${SCRIPT_DIR}/report.rnw.template > ${REPORT}
+
+cp ${SCRIPT_DIR}/tufte-report.cls ${PROJECT_NAME}/resources/
+cp ${SCRIPT_DIR}/gitignore ${PROJECT_NAME}/.gitignore
+cp ${SCRIPT_DIR}/analyze.pl ${ANALYZE}
+cp ${SCRIPT_DIR}/*.pm ${PROJECT_NAME}/scripts/lib/
+cp ${SCRIPT_DIR}/go ${GO}
+chmod 755 ${GO}
+
+cd ${PROJECT_NAME}
+git remote add foxtrot foxtrot:/home/kiran/projects/${PROJECT_NAME}
+git remote add banyan foxtrot:/home/kiran/projects/${PROJECT_NAME}
+git add .gitignore README bin go lists reports resources scripts
+git commit -m "Initial commit." -a

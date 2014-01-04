@@ -1,0 +1,45 @@
+\documentclass{tufte-report}
+
+<<settings, include=FALSE>>=
+opts_chunk$set(concordance=TRUE, warning=FALSE, error=FALSE, message=FALSE);
+
+dir.data = "<DATA_DIR>";
+dir.lists = "<LISTS_DIR>";
+dir.results = "<RESULTS_DIR>";
+dir.resources = "<RESOURCES_DIR>";
+dir.scripts = "<SCRIPTS_DIR>";
+@
+
+\title{<PROJECT_NAME>}
+\author{Kiran V Garimella}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\noindent Abstract goes here.
+\end{abstract}
+
+\section{Introduction}
+Introduction goes here.
+
+\section{Methods}
+Methods go here.
+
+\section{Results}
+Results go here.
+
+\subsection{Subtopic 1}
+Subtopic 1 goes here.
+
+\subsection{Subtopic 2}
+Subtopic 2 goes here.
+
+\section{Conclusion}
+Conclusion goes here.
+
+%\bibliography{<RESOURCES_DIR>/papers}
+%\bibliographystyle{plainnat}
+
+\end{document}
