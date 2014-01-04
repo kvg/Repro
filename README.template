@@ -6,8 +6,8 @@ PREREQUISITES
 
 To run this analysis, you will need the following software packages:
 
-1. R (version >= 2.15.2)
-2. knitr (an R package, can be installed from within R by typing "install.packages('knitr')".
+1. R (version >= 2.15.2).
+2. knitr (an R package, can be installed from within R by typing "install.packages('knitr')").
 3. MacTeX (or another TeX distribution that provides pdflatex, bibtex, and latexmk).
 
 
