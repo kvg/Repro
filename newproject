@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ $# == 0 ]; then
     echo "Must supply a project name as the first argument."
@@ -13,6 +13,7 @@ fi
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_NAME=$1
 DATE=`date`
+HOST=`hostname`
 
 README=${PROJECT_NAME}/README
 GO=${PROJECT_NAME}/go
@@ -36,7 +37,11 @@ cp ${SCRIPT_DIR}/go ${GO}
 chmod 755 ${GO}
 
 cd ${PROJECT_NAME}
-git remote add foxtrot foxtrot:/home/kiran/projects/${PROJECT_NAME}
-git remote add banyan foxtrot:/home/kiran/projects/${PROJECT_NAME}
+
+echo $HOST
+
+[ "$HOST" != "foxtrot" ] && git remote add foxtrot foxtrot:/home/kiran/projects/${PROJECT_NAME}
+[ "$HOST" != "banyan"  ] && git remote add banyan banyan:/home/kiran/projects/${PROJECT_NAME}
+
 git add .gitignore README bin go lists reports resources scripts
 git commit -m "Initial commit." -a
