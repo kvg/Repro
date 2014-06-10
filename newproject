@@ -33,8 +33,5 @@ chmod 755 ${GO}
 
 cd ${PROJECT_NAME}
 
-[ "$HOST" != "foxtrot" ] && git remote add foxtrot foxtrot:/home/kiran/projects/${PROJECT_NAME}
-[ "$HOST" != "banyan"  ] && git remote add banyan banyan:/home/kiran/projects/${PROJECT_NAME}
-
 git add .gitignore README.md bin go lists reports resources scripts
 git commit -m "Initial commit for ${PROJECT_NAME}." -a
