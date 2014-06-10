@@ -15,21 +15,16 @@ PROJECT_NAME=$1
 DATE=`date`
 HOST=`hostname`
 
-README=${PROJECT_NAME}/README
+README=${PROJECT_NAME}/README.md
 GO=${PROJECT_NAME}/go
 ANALYZE=${PROJECT_NAME}/scripts/analyze.pl
-REPORT=${PROJECT_NAME}/scripts/report.rnw.template
 
 git init ${PROJECT_NAME}
 
-mkdir -p ${PROJECT_NAME}/{bin,data,lists,results,resources,scratch,scripts,scripts/lib}
-mkdir -p ${HOME}/Dropbox/Reports/${PROJECT_NAME}
-ln -s ${HOME}/Dropbox/Reports/${PROJECT_NAME} ${PROJECT_NAME}/reports
+mkdir -p ${PROJECT_NAME}/{bin,data,lists,reports,results,resources,scratch,scripts,scripts/lib}
 
 sed "s/<PROJECT_NAME>/${PROJECT_NAME}/g" ${SCRIPT_DIR}/README.template | sed "s/<DATE>/${DATE}/g" > ${README}
-sed "s/<PROJECT_NAME>/${PROJECT_NAME}/g" ${SCRIPT_DIR}/report.rnw.template > ${REPORT}
 
-cp ${SCRIPT_DIR}/tufte-report.cls ${PROJECT_NAME}/resources/
 cp ${SCRIPT_DIR}/gitignore ${PROJECT_NAME}/.gitignore
 cp ${SCRIPT_DIR}/analyze.pl ${ANALYZE}
 cp ${SCRIPT_DIR}/*.pm ${PROJECT_NAME}/scripts/lib/
@@ -38,10 +33,8 @@ chmod 755 ${GO}
 
 cd ${PROJECT_NAME}
 
-echo $HOST
-
 [ "$HOST" != "foxtrot" ] && git remote add foxtrot foxtrot:/home/kiran/projects/${PROJECT_NAME}
 [ "$HOST" != "banyan"  ] && git remote add banyan banyan:/home/kiran/projects/${PROJECT_NAME}
 
-git add .gitignore README bin go lists reports resources scripts
-git commit -m "Initial commit." -a
+git add .gitignore README.md bin go lists reports resources scripts
+git commit -m "Initial commit for ${PROJECT_NAME}." -a
