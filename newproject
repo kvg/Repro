@@ -19,8 +19,6 @@ README=${PROJECT_NAME}/README.md
 GO=${PROJECT_NAME}/go
 ANALYZE=${PROJECT_NAME}/scripts/analyze.pl
 
-git init ${PROJECT_NAME}
-
 mkdir -p ${PROJECT_NAME}/{bin,data,lists,reports,results,resources,scratch,scripts,scripts/lib}
 
 sed "s/<PROJECT_NAME>/${PROJECT_NAME}/g" ${SCRIPT_DIR}/README.template | sed "s/<DATE>/${DATE}/g" > ${README}
@@ -30,8 +28,3 @@ cp ${SCRIPT_DIR}/analyze.pl ${ANALYZE}
 cp ${SCRIPT_DIR}/*.pm ${PROJECT_NAME}/scripts/lib/
 cp ${SCRIPT_DIR}/go ${GO}
 chmod 755 ${GO}
-
-cd ${PROJECT_NAME}
-
-git add .gitignore README.md bin go lists reports resources scripts
-git commit -m "Initial commit for ${PROJECT_NAME}." -a
