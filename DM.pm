@@ -354,7 +354,9 @@ sub addRule {
 #$cmdprefix = "bsub -q $bja{'queue'} -M $memCutoff -P $bja{'projectName'} -o $bja{'outputFile'} -u $bja{'mailTo'} -R \"rusage[mem=$integerMemRequest]\" $wait $rerunnable $migrationThreshold $bja{'extra'}";
     }
     elsif ( $bja{'cluster'} eq 'localhost' ) {
-        #$cmdpostfix = "| tee -a $bja{'outputFile'}";
+        if (!exists($bja{'nopostfix'})) {
+            $cmdpostfix = " 2>&1 | tee -a $bja{'outputFile'}";
+        }
     }
     else {
         croak
