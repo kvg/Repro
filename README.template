@@ -3,13 +3,14 @@
 
 This directory contains the results for the project "<PROJECT_NAME>".  The top-level directory was created on <DATE>.
 
+
 Prerequisites
 -------------
 
 To run this analysis, you will need the following software packages:
 
-1. R (version >= 2.15.2).
-2. knitr (an R package, can be installed from within R by typing "`install.packages('knitr')`").
+1. R (version >= 3.1.0).
+2. knitr (an R package, can be installed from within R by typing `install.packages('knitr')`).
 
 
 Regenerating results
