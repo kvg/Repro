@@ -14,7 +14,7 @@ my %args = &getCommandArguments(
     'RUN_ID'     => undef,
     'DRY_RUN'    => 1,
     'NUM_JOBS'   => 1,
-    'KEEP_GOING' => 1
+    'KEEP_GOING' => 1,
     'CLUSTER'    => 'localhost',
     'QUEUE'      => 'localhost',
 );
