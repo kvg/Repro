@@ -1,49 +1,37 @@
 #!/usr/bin/perl -w
 
 use strict;
-
-use Cwd;
-use FindBin;
+use Data::Dumper;
 use File::Basename;
-use lib "$FindBin::Bin/lib";
 
-use ParseArgs;
-use DM;
+sub printAnalyses {
+    my %analyses = @_;
 
-my %args = &getCommandArguments(
-    'RUN_ID'     => undef,
-    'DRY_RUN'    => 1,
-    'NUM_JOBS'   => 1,
-    'KEEP_GOING' => 1,
-    'CLUSTER'    => 'localhost',
-    'QUEUE'      => 'localhost',
-);
+    print "Available analyses:\n";
 
-my $cwd = getcwd();
-my $projectName = basename($cwd);
+    foreach my $analysis (sort keys(%analyses)) {
+        print "  - $analysis [arguments]\n";
+    }
+}
 
-my $binDir = "$cwd/bin";
-my $dataDir = "$cwd/data";
-my $listsDir = "$cwd/lists";
-my $resultsDir = "$cwd/results/$args{'RUN_ID'}";
-my $reportsDir = "$cwd/reports";
-my $resourcesDir = "$cwd/resources";
-my $scriptsDir = "$cwd/scripts";
-my $logsDir = "$resultsDir/logs";
+chomp(my @analyses = qx(find scripts/ -name \*analysis_\*.pl));
+my %analyses;
+foreach my $analysis (@analyses) {
+    (my $name = basename($analysis)) =~ s/(analysis_|\.pl)//g;
+    $analyses{$name} = $analysis;
 
-my $dm = new DM(
-    'dryRun'     => $args{'DRY_RUN'},
-    'numJobs'    => $args{'NUM_JOBS'},
-    'keepGoing'  => $args{'KEEP_GOING'},
-    'cluster'    => $args{'CLUSTER'},
-    'queue'      => $args{'QUEUE'},
-    'outputFile' => "$resultsDir/dm.log",
-);
+}
 
-# ==============
-# ANALYSIS RULES
-# ==============
+if (scalar(@ARGV) == 0) {
+    printAnalyses(%analyses);
+} else {
+    my $analysis = shift(@ARGV);
 
-#$dm->addRule(target, dependencies, command, 'outputFile' => "$logsDir/target.log");
-
-$dm->execute();
+    if (!exists($analyses{$analysis})) {
+        print "Analysis '$analysis' doesn't exist.\n\n";
+        printAnalyses(%analyses);
+    } else {
+        my $cmd = "perl -w $analyses{$analysis} ANALYSIS=$analysis " . join(" ", @ARGV);
+        system($cmd);
+    }
+}

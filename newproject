@@ -18,6 +18,7 @@ HOST=`hostname`
 README=${PROJECT_NAME}/README.md
 GO=${PROJECT_NAME}/go
 ANALYZE=${PROJECT_NAME}/scripts/analyze.pl
+EMPTY_ANALYSIS=${PROJECT_NAME}/scripts/analysis_empty.pl
 
 mkdir -p ${PROJECT_NAME}/{bin,data,lists,reports,results,resources,scratch,scripts,scripts/lib}
 
@@ -25,6 +26,7 @@ sed "s/<PROJECT_NAME>/${PROJECT_NAME}/g" ${SCRIPT_DIR}/README.template | sed "s/
 
 cp ${SCRIPT_DIR}/gitignore ${PROJECT_NAME}/.gitignore
 cp ${SCRIPT_DIR}/analyze.pl ${ANALYZE}
+cp ${SCRIPT_DIR}/analysis_empty.pl ${EMPTY_ANALYSIS}
 cp ${SCRIPT_DIR}/*.pm ${PROJECT_NAME}/scripts/lib/
 cp ${SCRIPT_DIR}/go ${GO}
 chmod 755 ${GO}
