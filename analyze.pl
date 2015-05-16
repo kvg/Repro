@@ -7,11 +7,13 @@ use File::Basename;
 sub printAnalyses {
     my %analyses = @_;
 
-    print "Available analyses:\n";
+    print "\nAvailable analyses:\n";
 
     foreach my $analysis (sort keys(%analyses)) {
         print "  - $analysis [arguments]\n";
     }
+
+    print "\n";
 }
 
 chomp(my @analyses = qx(find scripts/ -name \*analysis_\*.pl));

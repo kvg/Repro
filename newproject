@@ -30,3 +30,9 @@ cp ${SCRIPT_DIR}/analysis_empty.pl ${EMPTY_ANALYSIS}
 cp ${SCRIPT_DIR}/*.pm ${PROJECT_NAME}/scripts/lib/
 cp ${SCRIPT_DIR}/go ${GO}
 chmod 755 ${GO}
+
+(cd ${PROJECT_NAME} && git init)
+(cd ${PROJECT_NAME} && git remote add kvg git@github.com:kvg/${PROJECT_NAME}.git)
+(cd ${PROJECT_NAME} && git remote add lab git@github.com:mcveanlab/${PROJECT_NAME}.git)
+(cd ${PROJECT_NAME} && git add go README.md .gitignore scripts/analyze.pl scripts/lib/*)
+(cd ${PROJECT_NAME} && git commit -m "Initial commit" -a)
